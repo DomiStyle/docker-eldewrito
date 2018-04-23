@@ -30,7 +30,7 @@ RUN WINEDLLOVERRIDES="mscoree,mshtml=" xvfb-run wineboot -u && \
     xvfb-run wineserver -w
 
 # Install VC 2010, VC 2012, fonts and .NET 4.0
-RUN xvfb-run ./winetricks -q vcrun2010 vcrun2012 corefonts dotnet40
+RUN xvfb-run ./winetricks -q vcrun2010 vcrun2012 corefonts winhttp dotnet40
 
 # Cleanup
 RUN apt-get remove -y wget software-properties-common apt-transport-https cabextract && \
