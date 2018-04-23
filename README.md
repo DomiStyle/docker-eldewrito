@@ -20,6 +20,16 @@ See the docker-compose [here](https://github.com/DomiStyle/docker-eldewrito/blob
 
 A [default configuration file](https://github.com/DomiStyle/docker-eldewrito/blob/master/defaults/dewrito_prefs.cfg) and veto/voting rules will be created automatically if no configuration exists in the game directory. If you do not want to use this configuration you can override this behavior by creating your own dewrito_prefs.cfg before starting the container.
 
+### Tags
+
+The following tags are available:
+
+| Name       | Description |
+|------------|-------------|
+| `latest` | Direct build from master branch. Generally not recommended. |
+| `0.6-test` | Tagged build taken from master branch. Used for testing. |
+| `0.6` | Stable tag. Everything was tested and is working. (not available yet) |
+
 ## Configuration
 
 ### Ports
@@ -33,7 +43,7 @@ A [default configuration file](https://github.com/DomiStyle/docker-eldewrito/blo
 ### Volumes
 
 | Path       | Description | Required |
-|------------|----------|-------------|
+|------------|-------------|----------|
 | `/game` | Has to be mounted with the ElDewrito game files in place. | Yes |
 | `/config` | Contains the veto.json and voting.json if the default configuration is used. | No |
 | `/logs` | Contains the dorito.log and chat.log if the default configuration is used. | No |
