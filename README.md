@@ -6,6 +6,8 @@
 
 This is a Dockerfile for running the ElDewrito server under Linux. The container uses Wine to run the Windows application and xvfb to create a virtual desktop.
 
+The container is running 100% headless - no GUI is required for installation, execution or configuration.
+
 The game files are required in order to start this container. They are not bundled within the container and you will have to provide them.
 
 ## Usage
