@@ -1,0 +1,17 @@
+version: '2'
+
+services:
+  eldewrito:
+    image: domistyle/eldewrito
+    restart: always
+    ports:
+      - 11774:11774/udp
+      - 11775:11775/tcp
+      - 11776:11776/tcp
+      - 11777:11777/tcp
+    volumes:
+      - /path/to/game:/game
+      - /path/to/config:/config
+      - /path/to/logs:/logs
+    cap_add:
+      - SYS_PTRACE
