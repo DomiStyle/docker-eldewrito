@@ -15,7 +15,7 @@ The game files are required in order to start this container. They are not bundl
 See the docker-compose [here](https://github.com/DomiStyle/docker-eldewrito/blob/master/docker-compose.yml)  (recommended) or manually start the container with the following command:
 
     docker run -d -p 11774:11774/udp -p 11775:11775/tcp -p 11776:11776/tcp -p 11777:11777/tcp -v /path/to/game:/game -v /path/to/config:/config -v /path/to/logs:/logs --cap-add=SYS_PTRACE domistyle/eldewrito
-    
+
 **The capability SYS_PTRACE is required due to how ElDewrito works. The server won't start without it.**
 
 A [default configuration file](https://github.com/DomiStyle/docker-eldewrito/blob/master/defaults/dewrito_prefs.cfg) and veto/voting rules will be created automatically if no configuration exists in the game directory. If you do not want to use this configuration you can override this behavior by creating your own dewrito_prefs.cfg before starting the container.
@@ -27,8 +27,8 @@ The following tags are available:
 | Name       | Description |
 |------------|-------------|
 | `latest` | Direct build from master branch. Generally not recommended. |
-| `0.6-test` | Tagged build taken from master branch. Used for testing. |
-| `0.6` | Stable tag. Everything was tested and is working. (not available yet) |
+| `X.Y-testZ` | Tagged builds taken from master branch. Used for testing. |
+| `X.Y` | Stable tags. Everything was tested and is working. (not available yet) |
 
 ## Configuration
 
@@ -57,6 +57,8 @@ None yet. If you want any, create an issue.
 * The announce port(s) and listening port(s) can't be configured separately
   * This means you can't take advantage of container/host ports in Docker yet
   * Only 1:1 binding like 11774:11774 is possible for now
+* The server is running as root
+  * Not a security issue by itself, just bad practice and laziness
 * The dewrito_prefs.cfg can't be placed outside of the game directory
 * The banlist.txt can't be placed outside of the game directory
 * The server.json can't be placed outside of the game directory
