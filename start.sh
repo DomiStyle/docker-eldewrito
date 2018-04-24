@@ -27,7 +27,7 @@ if [ ! -f "dewrito_prefs.cfg" ]; then
 fi
 
 echo "Starting virtual frame buffer"
-Xvfb :1 -screen 0 640x480x24 &
+Xvfb :1 -screen 0 320x240x24 &
 
 echo "${GREEN}Starting dedicated server${NC}"
-wine eldorado.exe -launcher -dedicated -window -height 200 -width 200 -minimized
+WINEDLLOVERRIDES="winhttp,rasapi32=n" wine eldorado.exe -launcher -dedicated -window -height 200 -width 200 -minimized
