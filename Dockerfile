@@ -18,19 +18,19 @@ RUN dpkg --add-architecture i386 && \
 RUN wget https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks && \
     chmod +x ./winetricks
 
-# Install X virtual frame buffer
-RUN apt-get install -y xvfb
+# Install X virtual frame buffer and winbind
+RUN apt-get install -y xvfb winbind
 
 # Set wine parameters
 ENV WINEPREFIX="/wine"
 ENV DISPLAY=:1
 
 # Configure wine prefix
-RUN WINEDLLOVERRIDES="mscoree,mshtml=" xvfb-run wineboot -u && \
-    xvfb-run wineserver -w
-
-# Install VC 2010, VC 2012, fonts and .NET 4.0
-RUN xvfb-run ./winetricks -q vcrun2010 vcrun2012 corefonts winhttp dotnet40
+# WINEDLLOVERRIDES is required so wine doesn't ask any questions during setup
+RUN Xvfb :1 -screen 0 320x240x24 && \
+    WINEDLLOVERRIDES="mscoree,mshtml=" wineboot -u && \
+    wineserver -w && \
+    ./winetricks -q vcrun2012 winhttp
 
 # Cleanup
 RUN apt-get remove -y wget software-properties-common apt-transport-https cabextract && \
