@@ -27,7 +27,7 @@ ENV DISPLAY=:1
 
 # Configure wine prefix
 # WINEDLLOVERRIDES is required so wine doesn't ask any questions during setup
-RUN Xvfb :1 -screen 0 320x240x24 && \
+RUN Xvfb :1 -screen 0 320x240x24 & \
     WINEDLLOVERRIDES="mscoree,mshtml=" wineboot -u && \
     wineserver -w && \
     ./winetricks -q vcrun2012 winhttp
