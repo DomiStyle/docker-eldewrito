@@ -45,7 +45,9 @@ The following tags are available:
 11. Remove the dewrito_prefs.cfg from your game folder to let the container generate a known working one for you
 12. Run `docker-compose up -d`
 
-You're done. Your container will not be running and you can check if it is working by visting http://server_ip:11775 in your browser. You can use `docker ps` to view running containers.
+You're done. Your container will now be running and you can check if it is working by visting http://server_ip:11775 in your browser.
+
+You can use `docker ps` to view running containers.
 
 To update the container either change the image tag inside of your docker-compose.yml and run `docker-compose up -d` or use `docker-compose pull` followed by `docker-compose up -d` if you are using the latest tag.
 
