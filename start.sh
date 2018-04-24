@@ -26,6 +26,9 @@ if [ ! -f "dewrito_prefs.cfg" ]; then
     cp /defaults/voting.json /config
 fi
 
+echo "Cleaning up"
+rm /tmp/.X1-lock
+
 echo "Starting virtual frame buffer"
 Xvfb :1 -screen 0 320x240x24 &
 
