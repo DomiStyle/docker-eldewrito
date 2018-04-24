@@ -12,7 +12,7 @@ RUN dpkg --add-architecture i386 && \
     rm Release.key && \
     apt-add-repository https://dl.winehq.org/wine-builds/ubuntu/ && \
     apt-get update && \
-    apt-get install -y winehq-staging
+    apt-get install -y winehq-stable
 
 # Download winetricks from source
 RUN wget https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks && \
