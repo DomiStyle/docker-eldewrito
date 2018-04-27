@@ -41,7 +41,8 @@ RUN Xvfb :1 -screen 0 320x240x24 & \
 # Cleanup
 RUN apt-get remove -y wget software-properties-common apt-transport-https cabextract && \
     rm -rf /var/lib/apt/lists/* && \
-    rm winetricks
+    rm winetricks && \
+    rm -rf .cache/
 
 # Add the start script
 ADD start.sh .
