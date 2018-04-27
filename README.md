@@ -73,16 +73,21 @@ You can use `docker-compose logs` to view the logs inside of the container.
 
 ### Environment variables
 
-None yet. If you want any, create an issue.
+| Variable  | Description | Default  | Required |
+|-----------|-------------|----------|----------|
+| `PUID` | The user that the game server should be started as. | 1000 | No |
+| `PGID` | The group that should own the game, config and logs directories. | 1000 | No |
+| `INSTANCE_ID` | Starts the server in multi instance mode when set. Uses the configuration from /config/dewrito_prefs.cfg. Do not edit any config in your game directory in this mode, they will not be used. Instance identifier must be unique. | - | No |
+| `SKIP_CHECKSUM_CHECK` | Set to true or 1 to disable the checksum check performed on container start. (not recommended) | - | No |
 
 ## Issues & limitations
 
 * The announce port(s) and listening port(s) can't be configured separately
   * This means you can't take advantage of container/host ports in Docker yet
   * Only 1:1 binding like 11774:11774 is possible for now
-* The server is running as root
-  * Not a security issue by itself, just bad practice and laziness
-* The dewrito_prefs.cfg can't be placed outside of the game directory
+* ~~The server is running as root~~
+  * ~~Not a security issue by itself, just bad practice and laziness~~
+* ~~The dewrito_prefs.cfg can't be placed outside of the game directory~~ I'm working around this issue for now. Take a look at INSTANCE_ID for more details.
 * The banlist.txt can't be placed outside of the game directory
 * The server.json can't be placed outside of the game directory
-* The DedicatedServer.log can't be placed outside of the game directory
+* ~~The DedicatedServer.log can't be placed outside of the game directory~~
