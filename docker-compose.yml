@@ -15,3 +15,7 @@ services:
       - /path/to/logs:/logs
     cap_add:
       - SYS_PTRACE
+#    environment:
+#      - PUID=1000
+#      - PGID=1000
+#      - INSTANCE_ID=srv1
