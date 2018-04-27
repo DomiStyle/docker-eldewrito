@@ -52,10 +52,10 @@ echo "Taking ownership of folders"
 chown -R $PUID:$PGID /game /config /logs
 
 echo "Changing folder permissions"
-find /game /config /logs -type d -exec chmod 755 {} \;
+find /game /config /logs -type d -exec chmod 775 {} \;
 
 echo "Changing file permissions"
-find /game /config /logs -type f -exec chmod 655 {} \;
+find /game /config /logs -type f -exec chmod 664 {} \;
 
 if [ "$PUID" != 0 ]; then
     if ! id -u eldewrito > /dev/null 2>&1; then
