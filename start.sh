@@ -26,6 +26,7 @@ echo "Initializing v${CONTAINER_VERSION} for ElDewrito ${ELDEWRITO_VERSION}"
 
 if [ ! -f "eldorado.exe" ]; then
     echo "${RED}Could not find eldorado.exe. Did you mount the game directory to /game?${NC}"
+
     sleep 2
     exit 1
 fi
@@ -34,13 +35,12 @@ if [ -z "${SKIP_CHECKSUM_CHECK}" ]; then
     checksum=$(md5sum mtndew.dll | awk '{ print $1 }')
 
     if [ "$checksum" != "${MTNDEW_CHECKSUM}" ]; then
-        echo "Checksum mismatch! Make sure you are using a valid copy of the game."
-        echo "This container only supports ElDewrito ${ELDEWRITO_VERSION}.";
+        echo "${RED}Checksum mismatch! Make sure you are using a valid copy of the game.${NC}"
+        echo "${RED}This container only supports ElDewrito ${ELDEWRITO_VERSION}.${NC}";
 
         echo "Expected ${checksum}"
         echo "Got ${MTNDEW_CHECKSUM}"
 
-        echo
         sleep 2
         exit 10
     fi
@@ -48,23 +48,23 @@ else
     echo "Skipping checksum check."
 fi
 
-echo "Taking ownership of folders"
-chown -R $PUID:$PGID /game /config /logs
+if [ $PUID -lt 1000 ] || [ $PUID -gt 60000 ]; then
+    echo "${RED}PUID is invalid${NC}"
 
-echo "Changing folder permissions"
-find /game /config /logs -type d -exec chmod 775 {} \;
+    sleep 2
+    exit 20
+fi
 
-echo "Changing file permissions"
-find /game /config /logs -type f -exec chmod 664 {} \;
+if [ $PGID -lt 1000 ] || [ $PGID -gt 60000 ]; then
+    echo "${RED}PGID is invalid${NC}"
 
-if [ "$PUID" != 0 ]; then
-    if ! id -u eldewrito > /dev/null 2>&1; then
-        echo "Creating user"
-        useradd -u $PUID eldewrito
-    fi
+    sleep 2
+    exit 30
+fi
 
-    echo "Switching to eldewrito user"
-    su eldewrito
+if ! id -u eldewrito > /dev/null 2>&1; then
+    echo "Creating user"
+    useradd -u $PUID -m -d /tmp/home eldewrito
 fi
 
 if [ -z "${INSTANCE_ID}" ]; then
@@ -84,6 +84,15 @@ else
     cp /config/dewrito_prefs.cfg dewrito_prefs_${INSTANCE_ID}.cfg
 fi
 
+echo "Taking ownership of folders"
+chown -R $PUID:$PGID /game /config /logs /wine
+
+echo "Changing folder permissions"
+find /game /config /logs -type d -exec chmod 775 {} \;
+
+echo "Changing file permissions"
+find /game /config /logs -type f -exec chmod 664 {} \;
+
 echo "Cleaning up"
 rm /tmp/.X1-lock
 
@@ -94,8 +103,8 @@ echo "${GREEN}Starting dedicated server${NC}"
 export WINEDLLOVERRIDES="winhttp,rasapi32=n"
 
 if [ -z "${INSTANCE_ID}" ]; then
-    wine eldorado.exe -launcher -dedicated -window -height 200 -width 200 -minimized
+    su -c "wine eldorado.exe -launcher -dedicated -window -height 200 -width 200 -minimized" eldewrito
 else
     echo "Starting instance ${INSTANCE_ID}"
-    wine eldorado.exe -launcher -dedicated -window -height 200 -width 200 -minimized -instance ${INSTANCE_ID}
+    su -c "wine eldorado.exe -launcher -dedicated -window -height 200 -width 200 -minimized -instance ${INSTANCE_ID}" eldewrito
 fi
