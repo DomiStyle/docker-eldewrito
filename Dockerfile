@@ -1,6 +1,16 @@
 # Pull ubuntu image
 FROM ubuntu:16.04
 
+# Set version
+ENV CONTAINER_VERSION=0.3 \
+    ELDEWRITO_VERSION=0.6 \
+    MTNDEW_CHECKSUM=35e445939e5241cb0e2dfee182b3ed38 \
+    DISPLAY=:1 \
+    WINEPREFIX="/wine" \
+    DEBIAN_FRONTEND=noninteractive \
+    PUID=1000 \
+    PGID=1000
+
 # Install temporary packages
 RUN apt-get update && \
     apt-get install -y wget software-properties-common apt-transport-https cabextract
@@ -20,10 +30,6 @@ RUN wget https://raw.githubusercontent.com/Winetricks/winetricks/master/src/wine
 
 # Install X virtual frame buffer and winbind
 RUN apt-get install -y xvfb winbind
-
-# Set wine parameters
-ENV WINEPREFIX="/wine"
-ENV DISPLAY=:1
 
 # Configure wine prefix
 # WINEDLLOVERRIDES is required so wine doesn't ask any questions during setup
