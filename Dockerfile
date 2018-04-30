@@ -1,15 +1,15 @@
 # Pull ubuntu image
 FROM ubuntu:16.04
 
-# Set version
-ENV CONTAINER_VERSION=0.3 \
+# Set environment variables
+ENV CONTAINER_VERSION=0.4 \
     ELDEWRITO_VERSION=0.6 \
     MTNDEW_CHECKSUM=35e445939e5241cb0e2dfee182b3ed38 \
     DISPLAY=:1 \
     WINEPREFIX="/wine" \
     DEBIAN_FRONTEND=noninteractive \
-    PUID=1000 \
-    PGID=1000
+    PUID=0 \
+    PGID=0
 
 # Install temporary packages
 RUN apt-get update && \
