@@ -127,11 +127,16 @@ echo "${GREEN}Starting dedicated server${NC}"
 # DLL overrides for Wine are required to prevent issues with master server announcement
 export WINEDLLOVERRIDES="winhttp,rasapi32=n"
 
+if [ ! -z "${WINE_DEBUG}" ]; then
+    echo "Setting wine to verbose output"
+    export WINEDEBUG=warn+all
+fi
+
 if [ -z "${INSTANCE_ID}" ]; then
-    su -c "wine $WINE_PARAMS eldorado.exe -launcher -dedicated -window -height 200 -width 200 -minimized" $user
+    su -c "wine eldorado.exe -launcher -dedicated -window -height 200 -width 200 -minimized" $user
 else
     echo "Starting instance ${INSTANCE_ID}"
-    su -c "wine $WINE_PARAMS eldorado.exe -launcher -dedicated -window -height 200 -width 200 -minimized -instance ${INSTANCE_ID}" $user
+    su -c "wine eldorado.exe -launcher -dedicated -window -height 200 -width 200 -minimized -instance ${INSTANCE_ID}" $user
 fi
 
 if [ -z "${WAIT_ON_EXIT}" ]; then
