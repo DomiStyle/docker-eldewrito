@@ -75,10 +75,14 @@ You can use `docker-compose logs` to view the logs inside of the container.
 
 | Variable  | Description | Default  | Required |
 |-----------|-------------|----------|----------|
-| `PUID` | The user that the game server should be started as. | 1000 | No |
-| `PGID` | The group that should own the game, config and logs directories. | 1000 | No |
+| `RUN_AS_USER` | Set to true or 1 to run as user instead of root. | - | No |
+| `PUID` | The user that the game server should be started as. You also need to set RUN_AS_USER. | 1000 | No |
+| `PGID` | The group that should own the game, config and logs directories. You also need to set RUN_AS_USER. | 1000 | No |
 | `INSTANCE_ID` | Starts the server in multi instance mode when set. Uses the configuration from /config/dewrito_prefs.cfg. Do not edit any config in your game directory in this mode, they will not be used. Instance identifier must be unique. | - | No |
 | `SKIP_CHECKSUM_CHECK` | Set to true or 1 to disable the checksum check performed on container start. (not recommended) | - | No |
+| `SKIP_CHOWN` | Skips the chowning on container startup. Speeds up container startup but requires proper directory permissions. | - | No |
+| `WAIT_ON_EXIT` | Set to true or 1 to wait before the container exits. | - | No |
+| `WINE_DEBUG` | Set to true or 1 to get verbose output from Wine. | - | No |
 
 ## Issues & limitations
 
