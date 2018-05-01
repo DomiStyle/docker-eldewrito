@@ -128,8 +128,15 @@ echo "${GREEN}Starting dedicated server${NC}"
 export WINEDLLOVERRIDES="winhttp,rasapi32=n"
 
 if [ -z "${INSTANCE_ID}" ]; then
-    su -c "wine eldorado.exe -launcher -dedicated -window -height 200 -width 200 -minimized" $user
+    su -c "wine $WINE_PARAMS eldorado.exe -launcher -dedicated -window -height 200 -width 200 -minimized" $user
 else
     echo "Starting instance ${INSTANCE_ID}"
-    su -c "wine eldorado.exe -launcher -dedicated -window -height 200 -width 200 -minimized -instance ${INSTANCE_ID}" $user
+    su -c "wine $WINE_PARAMS eldorado.exe -launcher -dedicated -window -height 200 -width 200 -minimized -instance ${INSTANCE_ID}" $user
+fi
+
+if [ -z "${WAIT_ON_EXIT}" ]; then
+    echo "${RED}Server terminated, exiting${NC}"
+else
+    echo "${RED}Server terminated, waiting${NC}"
+    sleep infinity
 fi
