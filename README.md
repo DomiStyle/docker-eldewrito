@@ -32,7 +32,7 @@ The following tags are available:
 
 ## Tutorial (for Ubuntu hosts)
 
-1. Prepare a Ubuntu host
+1. Prepare an Ubuntu host
 2. Install Docker for Ubuntu by following [this guide](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
 3. Make sure Docker is working by running `docker -v`
 4. Install docker-compose with `sudo apt-get install docker-compose`
