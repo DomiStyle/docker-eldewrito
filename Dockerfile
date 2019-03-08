@@ -1,8 +1,8 @@
 # Pull ubuntu image
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
 # Set environment variables
-ENV CONTAINER_VERSION=0.4 \
+ENV CONTAINER_VERSION=0.5 \
     ELDEWRITO_VERSION=0.6.1 \
     MTNDEW_CHECKSUM=496b9296239539c747347805e15d2540 \
     DISPLAY=:1 \
@@ -17,12 +17,12 @@ RUN apt-get update && \
 
 # Install Wine stable
 RUN dpkg --add-architecture i386 && \
-    wget https://dl.winehq.org/wine-builds/Release.key && \
-    apt-key add Release.key && \
-    rm Release.key && \
-    apt-add-repository https://dl.winehq.org/wine-builds/ubuntu/ && \
+    wget wget -nc https://dl.winehq.org/wine-builds/winehq.key && \
+    apt-key add winehq.key && \
+    rm winehq.key && \
+    apt-add-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ bionic main' && \
     apt-get update && \
-    apt-get install -y winehq-staging
+    apt-get install -y winehq-stable
 
 # Download winetricks from source
 RUN wget https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks && \
