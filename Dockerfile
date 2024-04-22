@@ -2,14 +2,15 @@
 FROM ubuntu:22.04
 
 # Set environment variables
-ENV CONTAINER_VERSION=1.0 \
-    ELDEWRITO_VERSION=0.6.1 \
-    MTNDEW_CHECKSUM=496b9296239539c747347805e15d2540 \
+ENV CONTAINER_VERSION=1.1 \
+    ELDEWRITO_VERSION=0.7.0 \
+    MTNDEW_CHECKSUM=e6f02924bb0e9bdfe690b7973fce00e9 \
     DISPLAY=:1 \
     WINEPREFIX="/wine" \
     DEBIAN_FRONTEND=noninteractive \
-    PUID=0 \
-    PGID=0
+    RUN_AS_USER=1 \
+    PUID=1000 \
+    PGID=1000
 
 # Install temporary packages
 RUN apt-get update && \
@@ -70,4 +71,4 @@ WORKDIR /game
 EXPOSE 11774/udp 11775/tcp 11776/tcp 11777/tcp
 
 # Set volumes
-VOLUME /game /config /logs
+VOLUME /game

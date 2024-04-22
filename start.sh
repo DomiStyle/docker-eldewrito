@@ -5,23 +5,6 @@ GREEN='\033[0;32m'
 RED='\033[0;31m'
 YELLOW='\033[0;33m'
 
-# Function to create default configuration depending on path
-create_default_config()
-{
-    echo "${YELLOW}Could not find an existing dewrito_prefs.cfg. Using default.${NC}"
-    echo "${YELLOW}Make sure to adjust important settings like your RCon password!${NC}"
-
-    sleep 5
-
-    echo "Copying default dewrito_prefs.cfg."
-    cp /defaults/dewrito_prefs.cfg $1
-
-    echo "Copying default veto/voting json."
-
-    cp /defaults/veto.json /config
-    cp /defaults/voting.json /config
-}
-
 echo "Initializing v${CONTAINER_VERSION} for ElDewrito ${ELDEWRITO_VERSION}"
 
 # Search for eldorado.exe in game directory
@@ -86,33 +69,34 @@ else
     fi
 fi
 
-# Copy configuration files or create default config
-if [ -z "${INSTANCE_ID}" ]; then
-    echo "${YELLOW}Running in single instance mode.${NC}"
+if [ ! -f "data/dewrito_prefs.cfg" ]; then
+    echo "${YELLOW}Could not find an existing dewrito_prefs.cfg. Using default.${NC}"
+    echo "${YELLOW}Make sure to adjust important settings like your RCon password!${NC}"
 
-    if [ ! -f "dewrito_prefs.cfg" ]; then
-        create_default_config "."
+    sleep 5
+
+    echo "Copying default dewrito_prefs.cfg"
+    cp /defaults/dewrito_prefs.cfg data/
+
+    if [ ! -d "data/server" ]; then
+        mkdir data/server
     fi
-else
-    echo "Running in multi instance mode"
 
-    if [ ! -f "/config/dewrito_prefs.cfg" ]; then
-        create_default_config "/config"
+    if [ ! -f "data/server/voting.json" ]; then
+        echo "Copying default voting.json"
+        cp /defaults/voting.json data/server/
     fi
-
-    echo "Copying instance configuration"
-    cp /config/dewrito_prefs.cfg dewrito_prefs_${INSTANCE_ID}.cfg
 fi
 
 if [ -z "${SKIP_CHOWN}" ]; then
     echo "Taking ownership of folders"
-    chown -R $PUID:$PGID /game /config /logs /wine
+    chown -R $PUID:$PGID /game /wine
 
     echo "Changing folder permissions"
-    find /game /config /logs -type d -exec chmod 775 {} \;
+    find /game -type d -exec chmod 775 {} \;
 
     echo "Changing file permissions"
-    find /game /config /logs -type f -exec chmod 664 {} \;
+    find /game -type f -exec chmod 664 {} \;
 fi
 
 # Xvfb needs cleaning because it doesn't exit cleanly
@@ -132,12 +116,7 @@ if [ ! -z "${WINE_DEBUG}" ]; then
     export WINEDEBUG=warn+all
 fi
 
-if [ -z "${INSTANCE_ID}" ]; then
-    su -c "wine eldorado.exe -launcher -dedicated -window -height 200 -width 200 -minimized" $user
-else
-    echo "Starting instance ${INSTANCE_ID}"
-    su -c "wine eldorado.exe -launcher -dedicated -window -height 200 -width 200 -minimized -instance ${INSTANCE_ID}" $user
-fi
+su -c "wine eldorado.exe -launcher -dedicated -window -height 200 -width 200 -minimized" $user
 
 if [ -z "${WAIT_ON_EXIT}" ]; then
     echo "${RED}Server terminated, exiting${NC}"

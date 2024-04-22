@@ -1,0 +1,42 @@
+# This starts 2 dedicated server instances, sharing the game and mod files but with separate data and log folders
+
+services:
+  instance1:
+    image: domistyle/eldewrito
+    restart: unless-stopped
+    ports:
+      - 11774:11774/udp
+      - 11775:11775/tcp
+      - 11776:11776/tcp
+      - 11777:11777/tcp
+    volumes:
+      - /opt/eldewrito:/game
+      - mods:/game/mods
+      - instance1-data:/game/data
+      - instance1-logs:/game/logs
+    cap_add:
+      - SYS_PTRACE
+  instance2:
+    image: domistyle/eldewrito
+    restart: unless-stopped
+    # Don't forget to manually update the dewrito_prefs.cfg for this instance with the ports
+    # The ports below are just examples
+    ports:
+      - 11784:11784/udp
+      - 11785:11785/tcp
+      - 11786:11786/tcp
+      - 11787:11787/tcp
+    volumes:
+      - /opt/eldewrito:/game
+      - mods:/game/mods
+      - instance2-data:/game/data
+      - instance2-logs:/game/logs
+    cap_add:
+      - SYS_PTRACE
+
+volumes:
+  instance1-data:
+  instance1-logs:
+  instance2-data:
+  instance2-logs:
+  mods:
