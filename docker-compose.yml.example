@@ -9,9 +9,9 @@ services:
       - 11777:11777/tcp
     volumes:
       - /opt/eldewrito:/game
-      - data:/game/data
       - mods:/game/mods
-      - logs:/logs
+      - data:/game/data
+      - logs:/game/logs
     cap_add:
       - SYS_PTRACE
 
