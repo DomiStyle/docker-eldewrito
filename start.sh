@@ -109,7 +109,9 @@ Xvfb :1 -screen 0 320x240x24 &
 echo "${GREEN}Starting dedicated server${NC}"
 
 # DLL overrides for Wine are required to prevent issues with master server announcement
-export WINEDLLOVERRIDES="winhttp,rasapi32=n"
+# native is needed to fix master server announcement
+# builtin is needed to fix mod downloads
+export WINEDLLOVERRIDES="winhttp,rasapi32=b,n"
 
 if [ ! -z "${WINE_DEBUG}" ]; then
     echo "Setting wine to verbose output"
