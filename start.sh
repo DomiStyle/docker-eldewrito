@@ -69,23 +69,28 @@ else
     fi
 fi
 
+# Create a server directory if it doesn't exist
+if [ ! -d "data/server" ]; then
+    echo "${YELLOW}Could not find an existing data/server directory. Creating one.${NC}"
+    mkdir data/server
+fi
+
+# Copy dewrito_prefs.cfg if it doesn't exist
 if [ ! -f "data/dewrito_prefs.cfg" ]; then
     echo "${YELLOW}Could not find an existing dewrito_prefs.cfg. Using default.${NC}"
-    echo "${YELLOW}Make sure to adjust important settings like your RCon password!${NC}"
-
-    sleep 5
-
-    echo "Copying default dewrito_prefs.cfg"
     cp /defaults/dewrito_prefs.cfg data/
+fi
 
-    if [ ! -d "data/server" ]; then
-        mkdir data/server
-    fi
+# Copy voting.json if it doesn't exist
+if [ ! -f "data/server/voting.json" ]; then
+    echo "${YELLOW}Could not find an existing voting.json. Using default.${NC}"
+    cp /defaults/voting.json data/server/
+fi
 
-    if [ ! -f "data/server/voting.json" ]; then
-        echo "Copying default voting.json"
-        cp /defaults/voting.json data/server/
-    fi
+# Copy dewrito.json if it doesn't exist (It is needed for the master server list)
+if [ ! -f "data/dewrito.json" ]; then
+    echo "${YELLOW}Could not find an existing dewrito.json. Using default.${NC}"
+    cp /defaults/dewrito.json data/
 fi
 
 if [ -z "${SKIP_CHOWN}" ]; then

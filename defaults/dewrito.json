@@ -1,0 +1,60 @@
+{
+    "stats": {
+        "submitUrls": [
+            "http://api.eldewrito.org/api/submit"
+        ],
+        "playerInfo": "http://api.eldewrito.org/api/playersinfo",
+        "serviceRecord": "http://api.eldewrito.org/api/servicerecord",
+        "playerProfile": "http://stats.eldewrito.org/player/",
+        "publicKey": ""
+    },
+    "banlistUrls": [
+        "http://api.eldewrito.org/api/banlist"
+    ],
+    "masterServers": [
+        {
+            "list": "http://eldewrito.pauwlo.fr/master/list",
+            "announce": "http://eldewrito.pauwlo.fr/master/announce"
+        },{
+            "list": "http://ed.thebeerkeg.net/server/list",
+            "announce": "http://ed.thebeerkeg.net/server/announce"
+        },{
+            "list": "http://master-server-01.letmehostit.com/list",
+            "announce": "http://master-server-01.letmehostit.com/announce"
+        },{
+            "list": "http://master-server-02.letmehostit.com/list",
+            "announce": "http://master-server-02.letmehostit.com/announce"
+        },{
+            "list": "http://master1.eldewrito.ch/list",
+            "announce": "http://master1.eldewrito.ch/announce"
+        },{
+            "list": "http://master2.eldewrito.ch/list",
+            "announce": "http://master2.eldewrito.ch/announce"
+        },{
+            "list": "http://master3.eldewrito.ch/list",
+            "announce": "http://master3.eldewrito.ch/announce"
+        },{
+            "list": "http://eldewrito.red-m.net/list",
+            "announce": "http://eldewrito.red-m.net/announce"
+        }
+    ],
+    "announcements":"http://api.eldewrito.org/announcements.json",
+    "officialServers": "http://api.eldewrito.org/api/officialservers",
+    "serverBlacklist": "http://api.eldewrito.org/api/serverblacklist",
+    "playerReport":"http://api.eldewrito.org/api/submitreport",
+    "playerReportSiteKey":"6LdGBlIpAAAAANCugNgyBBZGoWf_FTGhkSb-OZsj",
+    "verifyReport":"http://api.eldewrito.org/api/verifyreport",
+    "playerRegister": "http://api.eldewrito.org/api/register",
+    "changeemblem": "http://api.eldewrito.org/api/changeemblem",
+    "emblemgenerator": "emblems://emblem",
+    "iceServers": [
+        {
+            "urls": [
+                "stun:stun.l.google.com:19302",
+                "stun:stun1.l.google.com:19302",
+                "stun:stun3.l.google.com:19302",
+                "stun:stun4.l.google.com:19302"
+            ]
+        }
+    ]
+}
