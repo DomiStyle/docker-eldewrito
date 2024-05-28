@@ -3,8 +3,8 @@ FROM ubuntu:22.04
 
 # Set environment variables
 ENV CONTAINER_VERSION=1.1 \
-    ELDEWRITO_VERSION=0.7.0 \
-    MTNDEW_CHECKSUM=e6f02924bb0e9bdfe690b7973fce00e9 \
+    ELDEWRITO_VERSION=0.7.1 \
+    MTNDEW_CHECKSUM=f1d6c49381ac1ec572f0f405e4cd406b \
     DISPLAY=:1 \
     WINEPREFIX="/wine" \
     DEBIAN_FRONTEND=noninteractive \
