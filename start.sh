@@ -1,4 +1,4 @@
-#!/bin/sh
+k#!/bin/sh
 
 NC='\033[0m'
 GREEN='\033[0;32m'
@@ -23,8 +23,8 @@ if [ -z "${SKIP_CHECKSUM_CHECK}" ]; then
         echo "${RED}Checksum mismatch! Make sure you are using a valid copy of the game.${NC}"
         echo "${RED}This container only supports ElDewrito ${ELDEWRITO_VERSION}.${NC}"
 
-        echo "Expected ${checksum}"
-        echo "Got ${MTNDEW_CHECKSUM}"
+        echo "Expected ${MTNDEW_CHECKSUM}"
+        echo "Got ${checksum}"
 
         sleep 2
         exit 10
